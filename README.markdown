@@ -2,7 +2,9 @@
 
 James Fryman <james@frymanet.com>
 
-This module 
+This module sets up an Apache VHost with generated puppetdocs from your puppetmaster.
+
+http://projects.puppetlabs.com/projects/1/wiki/Puppet_Manifest_Documentation
 
 # Quick Start
 
