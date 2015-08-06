@@ -18,5 +18,5 @@
 #   This method should not be called directly.
 class puppetdoc::params {
   $pc_docroot   = '/opt/puppet/www'
-  $pc_puppetdoc = '/opt/puppet/bin/puppetdoc'
+  $pc_puppetdoc = '/opt/puppetlabs/bin/puppet doc'
 }
