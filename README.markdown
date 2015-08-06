@@ -21,6 +21,8 @@ _Apache Module_
 <pre>
    class { 'puppetdoc':
     puppetmaster => 'puppet.frymanet.com',
+    pc_docroot   => '/var/www/puppetdoc',
+    pc_puppetdoc => '/usr/local/bin/puppet doc',
   }
 </pre>
 
