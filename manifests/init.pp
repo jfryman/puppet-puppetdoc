@@ -6,6 +6,8 @@
 #
 # Parameters:
 #   - $puppetmaster: This is the vhost that will be setup for hosting.
+#   - $pc_docroot: the document root for apache vhost
+#   - $pc_puppetdoc: the executable which will generate the code (normally puppet doc)
 #
 # Actions:
 #   This module configures an Apache vhost, and setups a reoccuring cron job to automatically generate
@@ -21,26 +23,27 @@
 #   }
 
 class puppetdoc(
-  $puppetmaster    
-) {
-  include puppetdoc::params
+  $puppetmaster,
+  $pc_docroot   = $puppetdoc::params::pc_docroot,
+  $pc_puppetdoc = $puppetdoc::params::pc_puppetdoc,
+) inherits puppetdoc::params {
 
-  apache::vhost { $puppetmaster: 
+  apache::vhost { $puppetmaster:
     port     => '80',
-    docroot  => $puppetdoc::params::pc_docroot,
-    ssl      => 'false',
+    docroot  => $pc_docroot,
+    ssl      => false,
     priority => '50',
   }
 
-  file { $puppetdoc::params::pc_docroot:
+  file { $pc_docroot:
     ensure => directory,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
   }
-   
-  cron { 'update-puppetdoc': 
-    command => "${puppetdoc::params::pc_puppetdoc} --all --mode rdoc --outputdir $puppetdoc::params::pc_docroot/puppetdoc",
+
+  cron { 'update-puppetdoc':
+    command => "${pc_puppetdoc} --all --mode rdoc --outputdir ${pc_docroot}/puppetdoc",
     user    => 'root',
     minute  => '22',
   }
